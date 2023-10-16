@@ -1,5 +1,5 @@
 let screenValue = ''
-let currentValue = 0
+let currentValue = null
 let lastOp = 0 // 1- add | 2- sub | 3- mult | 4- div
 
 function showOnScreen (value) {
@@ -28,30 +28,50 @@ function clearScreen() {
     screenValue = ''
 }
 
-function deleteNumber () {
-    const screen = document.getElementById('screen')
-    screenValue = screenValue.slice(0, -1)
-    screen.innerHTML = screenValue
+function executeSum() {
+    lastOp = 1
+    if (currentValue == null) {
+        currentValue = parseInt(screenValue)
+    }
+    clearScreen()
 }
 
-function executeSum() {
-    if (currentValue === 0) {
-        currentValue += parseInt(screenValue)
-        clearScreen()
-        lastOp = 1
-    } else {
-        showResult(currentValue + parseInt(screenValue))
+function executeSub() {
+    lastOp = 2
+    if (currentValue == null) {
+        currentValue = parseInt(screenValue)
     }
+    clearScreen()
+}
+
+function executeMult() {
+    lastOp = 3
+    if (currentValue == null) {
+        currentValue = parseInt(screenValue)
+    }
+    clearScreen()
+}
+
+function executeDiv() {
+    lastOp = 4
+    if (currentValue == null) {
+        currentValue = parseInt(screenValue)
+    }
+    clearScreen()
 }
 
 function executeResult () {
     if (lastOp === 1) {
-        showResult(currentValue + parseInt(screenValue))
+        currentValue += parseInt(screenValue)
+        showResult(currentValue)
     } else if (lastOp === 2) {
-        showResult(currentValue - parseInt(screenValue))
+        currentValue -= parseInt(screenValue)
+        showResult(currentValue)
     } else if (lastOp === 3) {
-        showResult(currentValue * parseInt(screenValue))
+        currentValue *= parseInt(screenValue)
+        showResult()
     } else if (lastOp === 4) {
-        showResult(currentValue / parseInt(screenValue))
+        currentValue /= parseInt(screenValue)
+        showResult(currentValue)
     }
 }
