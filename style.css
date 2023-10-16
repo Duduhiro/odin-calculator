@@ -9,6 +9,12 @@ body, html {
     font-size: 32px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -24,6 +30,10 @@ main {
     height: 56px;
     background-color: white;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 32px;
 }
 
 .row {
