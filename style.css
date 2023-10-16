@@ -51,6 +51,7 @@ main {
     height: 64px;
     transition: ease-in-out 0.2s;
     box-shadow: 0px 0px 2px 0.5px rgba(0, 0, 0, 0.3);
+    user-select: none;
 }
 
 .button:hover {
