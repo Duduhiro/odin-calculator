@@ -11,6 +11,7 @@ function addNumberToDisplay(num) {
 }
 
 function addSignalToDisplay(signal) {
+    
     if (signalAdded == false) {
         expression = number + ' ' + signal + ' '
         signalAdded = true
@@ -18,9 +19,15 @@ function addSignalToDisplay(signal) {
         updateDisplay()
         updateNumber()
     } else {
-        expression += number
-        currentSignal = ' ' + signal + ' '
-        getResult(1)
+        if (number.length == 0) {
+            expression = expression.slice(0, -2)
+            expression += signal + ' '
+            updateDisplay()
+        } else {
+            expression += number
+            currentSignal = ' ' + signal + ' '
+            getResult(1)
+        }
     }
 }
 
