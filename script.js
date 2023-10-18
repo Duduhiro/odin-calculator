@@ -122,7 +122,7 @@ function executeDiv() {
     
 }
 
-function executeResult() {
+function executeResult(control) {
     const sumButton = document.getElementById('sum')
     const subButton = document.getElementById('subtract')
     const mulButton = document.getElementById('multiply')
@@ -135,7 +135,9 @@ function executeResult() {
         secondValue = null
         clearScreen()
         updateDisplay(starterValue)
-        executed = true
+        if (control == 1) {
+            executed = true
+        }
     }
     if (operation == 2) {
         subButton.style.backgroundColor = '#a0a0a0'
@@ -144,7 +146,9 @@ function executeResult() {
         secondValue = null
         clearScreen()
         updateDisplay(starterValue)
-        executed = true
+        if (control == 1) {
+            executed = true
+        }
     }
     if (operation == 3) {
         mulButton.style.backgroundColor = '#a0a0a0'
@@ -153,7 +157,9 @@ function executeResult() {
         secondValue = null
         clearScreen()
         updateDisplay(starterValue)
-        executed = true
+        if (control == 1) {
+            executed = true
+        }
     }
     if (operation == 4) {
         divButton.style.backgroundColor = '#a0a0a0'
@@ -162,6 +168,8 @@ function executeResult() {
         secondValue = null
         clearScreen()
         updateDisplay(starterValue)
-        executed = true
+        if (control == 1) {
+            executed = true
+        }
     }
 }
