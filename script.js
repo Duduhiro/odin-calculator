@@ -1,4 +1,4 @@
-let firstValue = null
+let starterValue = null
 let secondValue = null
 let displayValue = ''
 let operation = null
@@ -13,7 +13,7 @@ function updateDisplay(value) {
 }
 
 function updateFirstValue(value) {
-    firstValue = parseInt(value)
+    starterValue = parseInt(value)
 }
 
 function clearScreen() {
@@ -23,7 +23,7 @@ function clearScreen() {
 
 function resetCalculator() {
     clearScreen()
-    firstValue = null
+    starterValue = null
     secondValue = null
     operation = null
 }
@@ -32,26 +32,21 @@ function executeSum() {
     const sumButton = document.querySelector('#sum')
     operation = 1
 
-    if (firstValue === null) {
+    if (starterValue == null) {
         updateFirstValue(displayValue)
     }
     clearScreen()
-    if (sum_executed == false) {
-        sumButton.addEventListener('click', () => {
-            executeResult()
-            
-        })
-    } else {
+    if (secondValue != null) {
         executeResult()
     }
-    
 }
 
 function executeResult() {
     if (operation == 1) {
         secondValue = parseInt(displayValue)
-        firstValue += secondValue
+        starterValue += secondValue
+        secondValue = null
         clearScreen()
-        updateDisplay(firstValue)
+        updateDisplay(starterValue)
     }
 }
