@@ -1,77 +1,57 @@
-let screenValue = ''
-let currentValue = null
-let lastOp = 0 // 1- add | 2- sub | 3- mult | 4- div
+let firstValue = null
+let secondValue = null
+let displayValue = ''
+let operation = null
+let sum_executed = false
 
-function showOnScreen (value) {
-    if (screenValue.length < 14) {
-        const screen = document.getElementById('screen')
-        screen.innerHTML += value
-        screenValue += value
-    }
+function updateDisplay(value) {
+    if (displayValue.length < 14) {
+        const display = document.querySelector('#screen')
+        displayValue += value
+        display.innerHTML = displayValue
+    }   
 }
 
-function showResult (value) {
-    const screen = document.getElementById('screen')
-    screen.innerHTML = value
-}
-
-function clearScreenAndValue() {
-    const screen = document.getElementById('screen')
-    screen.innerHTML = ''
-    screenValue = ''
-    currentValue = 0
+function updateFirstValue(value) {
+    firstValue = parseInt(value)
 }
 
 function clearScreen() {
-    const screen = document.getElementById('screen')
-    screen.innerHTML = ''
-    screenValue = ''
+    displayValue = ''
+    updateDisplay('')
+}
+
+function resetCalculator() {
+    clearScreen()
+    firstValue = null
+    secondValue = null
+    operation = null
 }
 
 function executeSum() {
-    lastOp = 1
-    if (currentValue == null) {
-        currentValue = parseInt(screenValue)
+    const sumButton = document.querySelector('#sum')
+    operation = 1
+
+    if (firstValue === null) {
+        updateFirstValue(displayValue)
     }
     clearScreen()
-}
-
-function executeSub() {
-    lastOp = 2
-    if (currentValue == null) {
-        currentValue = parseInt(screenValue)
+    if (sum_executed == false) {
+        sumButton.addEventListener('click', () => {
+            executeResult()
+            
+        })
+    } else {
+        executeResult()
     }
-    clearScreen()
+    
 }
 
-function executeMult() {
-    lastOp = 3
-    if (currentValue == null) {
-        currentValue = parseInt(screenValue)
-    }
-    clearScreen()
-}
-
-function executeDiv() {
-    lastOp = 4
-    if (currentValue == null) {
-        currentValue = parseInt(screenValue)
-    }
-    clearScreen()
-}
-
-function executeResult () {
-    if (lastOp === 1) {
-        currentValue += parseInt(screenValue)
-        showResult(currentValue)
-    } else if (lastOp === 2) {
-        currentValue -= parseInt(screenValue)
-        showResult(currentValue)
-    } else if (lastOp === 3) {
-        currentValue *= parseInt(screenValue)
-        showResult()
-    } else if (lastOp === 4) {
-        currentValue /= parseInt(screenValue)
-        showResult(currentValue)
+function executeResult() {
+    if (operation == 1) {
+        secondValue = parseInt(displayValue)
+        firstValue += secondValue
+        clearScreen()
+        updateDisplay(firstValue)
     }
 }
