@@ -27,13 +27,31 @@ main {
 
 .screen {
     width: 100%;
-    height: 56px;
+    height: 80px;
     background-color: white;
     margin-bottom: 20px;
     display: flex;
-    justify-content: end;
+    flex-direction: column;
     align-items: center;
     font-size: 32px;
+}
+
+.screen div {
+    width: 100%;
+}
+
+#expression {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#number {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-right: 10px;
 }
 
 .row {

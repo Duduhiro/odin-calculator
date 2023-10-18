@@ -1,175 +1,112 @@
-let starterValue = null
-let secondValue = null
-let displayValue = ''
-let operation = null
-let executed = false
+let number = ''
+let expression = ''
+let signalAdded = false
+let currentSignal = ''
 
-function updateDisplay(value) {
-    if (displayValue.length < 14) {
-        const display = document.getElementById('screen')
-        displayValue += value
-        display.innerHTML = displayValue
-    }   
+function addNumberToDisplay(num) {
+    if (number.length < 13) {
+        number += num
+        updateNumber()
+    }
 }
 
-function updateFirstValue(value) {
-    starterValue = parseInt(value)
+function addSignalToDisplay(signal) {
+    if (signalAdded == false) {
+        expression = number + ' ' + signal + ' '
+        signalAdded = true
+        number = ''
+        updateDisplay()
+        updateNumber()
+    } else {
+        expression += number
+        currentSignal = ' ' + signal + ' '
+        getResult(1)
+    }
 }
 
-function clearScreen() {
-    displayValue = ''
-    updateDisplay('')
+function updateDisplay() {
+    const displayExpression = document.getElementById('expression')
+    displayExpression.innerHTML = expression
+}
+
+function updateNumber() {
+    const displayNumber = document.getElementById('number')
+    displayNumber.innerHTML = number
 }
 
 function resetCalculator() {
-    clearScreen()
-    starterValue = null
-    secondValue = null
-    operation = null
-
-    const sumButton = document.getElementById('sum')
-    const subButton = document.getElementById('subtract')
-    const mulButton = document.getElementById('multiply')
-    const divButton = document.getElementById('divide')
-
-    sumButton.style.backgroundColor = '#a0a0a0'
-    subButton.style.backgroundColor = '#a0a0a0'
-    mulButton.style.backgroundColor = '#a0a0a0'
-    divButton.style.backgroundColor = '#a0a0a0'
+    number = ''
+    expression = ''
+    signalAdded = false
+    updateNumber()
+    updateDisplay()
+    console.log('reseted')
 }
 
-function executeSum() {
-    const sumButton = document.getElementById('sum')
-    operation = 1
-    sumButton.style.backgroundColor = 'red'
-
-    if (starterValue == null) {
-        updateFirstValue(displayValue)
-        clearScreen()
+function getResult(button) {
+    
+    if (button == 1) {
+        const arr = expression.split(" ")
+        const firstValue = parseInt(arr[0])
+        const operator = arr[1]
+        const secondValue = parseInt(arr[2])
+        if (operator === '+') {
+            expression = firstValue + secondValue + currentSignal
+            number = ''
+            updateNumber()
+            updateDisplay()
+        }
+        if (operator === '-') {
+            expression = firstValue - secondValue + currentSignal
+            number = ''
+            updateNumber()
+            updateDisplay()
+        }
+        if (operator === '*') {
+            expression = firstValue * secondValue + currentSignal
+            number = ''
+            updateNumber()
+            updateDisplay()
+        }
+        if (operator === '/') {
+            expression = firstValue / secondValue + currentSignal
+            number = ''
+            updateNumber()
+            updateDisplay()
+        }
     } else {
-        if (displayValue != '') {
-            if (executed == false) {
-                executeResult()
-            } else {
-                executed = false
-            }
-            clearScreen()
+        expression += number
+        const arr = expression.split(" ")
+        const firstValue = parseInt(arr[0])
+        const operator = arr[1]
+        const secondValue = parseInt(arr[2])
+        if (operator === '+') {
+            number = firstValue + secondValue
+            expression = ''
+            updateNumber()
+            updateDisplay()
+            signalAdded = false
         }
-    }
-    
-}
-
-function executeSub() {
-    const subButton = document.getElementById('subtract')
-    operation = 2
-    subButton.style.backgroundColor = 'red'
-
-    if (starterValue == null) {
-        updateFirstValue(displayValue)
-        clearScreen()
-    } else {
-        if (displayValue != '') {
-            if (executed == false) {
-                executeResult()
-            } else {
-                executed = false
-            }
-            clearScreen()
+        if (operator === '-') {
+            number = firstValue - secondValue
+            expression = ''
+            updateNumber()
+            updateDisplay()
+            signalAdded = false
         }
-    }
-    
-}
-
-function executeMult() {
-    const multButton = document.getElementById('multiply')
-    operation = 3
-    multButton.style.backgroundColor = 'red'
-
-    if (starterValue == null) {
-        updateFirstValue(displayValue)
-        clearScreen()
-    } else {
-        if (displayValue != '') {
-            if (executed == false) {
-                executeResult()
-            } else {
-                executed = false
-            }
-            clearScreen()
+        if (operator === '*') {
+            number = firstValue * secondValue
+            expression = ''
+            updateNumber()
+            updateDisplay()
+            signalAdded = false
         }
-    }
-    
-}
-
-function executeDiv() {
-    const divButton = document.getElementById('divide')
-    operation = 4
-    divButton.style.backgroundColor = 'red'
-
-    if (starterValue == null) {
-        updateFirstValue(displayValue)
-        clearScreen()
-    } else {
-        if (displayValue != '') {
-            if (executed == false) {
-                executeResult()
-            } else {
-                executed = false
-            }
-            clearScreen()
-        }
-    }
-    
-}
-
-function executeResult(control) {
-    const sumButton = document.getElementById('sum')
-    const subButton = document.getElementById('subtract')
-    const mulButton = document.getElementById('multiply')
-    const divButton = document.getElementById('divide')
-    
-    if (operation == 1) {
-        sumButton.style.backgroundColor = '#a0a0a0'
-        secondValue = parseInt(displayValue)
-        starterValue += secondValue
-        secondValue = null
-        clearScreen()
-        updateDisplay(starterValue)
-        if (control == 1) {
-            executed = true
-        }
-    }
-    if (operation == 2) {
-        subButton.style.backgroundColor = '#a0a0a0'
-        secondValue = parseInt(displayValue)
-        starterValue -= secondValue
-        secondValue = null
-        clearScreen()
-        updateDisplay(starterValue)
-        if (control == 1) {
-            executed = true
-        }
-    }
-    if (operation == 3) {
-        mulButton.style.backgroundColor = '#a0a0a0'
-        secondValue = parseInt(displayValue)
-        starterValue *= secondValue
-        secondValue = null
-        clearScreen()
-        updateDisplay(starterValue)
-        if (control == 1) {
-            executed = true
-        }
-    }
-    if (operation == 4) {
-        divButton.style.backgroundColor = '#a0a0a0'
-        secondValue = parseInt(displayValue)
-        starterValue /= secondValue
-        secondValue = null
-        clearScreen()
-        updateDisplay(starterValue)
-        if (control == 1) {
-            executed = true
+        if (operator === '/') {
+            number = firstValue / secondValue
+            expression = ''
+            updateNumber()
+            updateDisplay()
+            signalAdded = false
         }
     }
 }
